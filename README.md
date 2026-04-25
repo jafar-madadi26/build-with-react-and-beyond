@@ -3,8 +3,8 @@
 A long-term learning and project repository focused on mastering React and the modern frontend ecosystem.
 
 ## 👥 Contributors
-- You
-- Your Partner
+- madadi-jafar
+- jafar-madadi26
 
 ---
 
