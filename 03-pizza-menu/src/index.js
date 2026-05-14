@@ -54,9 +54,13 @@ function Header() {
     // const style = {color: "red", fontSize: "42px", textTransform: "uppercase"};
     const style = {};
 
-    return (<h1 className="header">
-        Fast React Pizza Co.
-    </h1>);
+    return (
+        <header className="header">
+            <h1 style={style}>
+                Fast React Pizza Co.
+            </h1>
+        </header>
+    );
 }
 
 function Menu() {
@@ -69,11 +73,18 @@ function Menu() {
         <h2>Our menu</h2>
 
         {numPizzas > 0 ? (
-            <ul className="pizzas">
-                {pizzas.map((pizza => (
-                    <Pizza pizzaOpj={pizza} key={pizza.name}/>
-                )))}
-            </ul>) : <p>We're still working on our menu. Please come back later :</p>}
+            <>
+                <p>Authentic Italian cuisine. 6 creative dishes to choose from. All form our stone oven, all organic,
+                    all
+                    delicious.</p>
+
+                <ul className="pizzas">
+                    {pizzas.map((pizza => (
+                        <Pizza pizzaOpj={pizza} key={pizza.name}/>
+                    )))}
+                </ul>
+            </>
+        ) : <p>We're still working on our menu. Please come back later :</p>}
 
 
         {/*<Pizza name='Pizza Spinaci' ingredients='Tomato, mozarella, spinach, and ricotta cheese'*/}
