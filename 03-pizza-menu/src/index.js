@@ -37,7 +37,7 @@ const pizzaData = [{
     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
     price: 18,
     photoPath: "pizzas/prosciutto.jpg",
-    soldOut: false,
+    soldOut: true,
 },];
 
 
@@ -99,15 +99,20 @@ function Pizza({pizzaOpj}) {
 
     console.log(pizzaOpj);
 
-    if (pizzaOpj.soldOut) return null;
+    // if (pizzaOpj.soldOut) return null;
+
 
     return (
-        <li className='pizza'>
+        <li className={`pizza ${pizzaOpj.soldOut ? "sold-out" : ""}`}>
             <img src={pizzaOpj.photoPath} alt={pizzaOpj.name}/>
             <div>
                 <h3>{pizzaOpj.name}</h3>
                 <p>{pizzaOpj.ingredients}</p>
-                <span>{pizzaOpj.price}</span>
+
+                {/*{pizzaOpj.soldOut ? (<span>SLOD OUT</span>) : (pizzaOpj.price)}*/}
+
+
+                <span>{pizzaOpj.soldOut ? "SOLD OUT" : pizzaOpj.price}</span>
             </div>
         </li>);
 }
