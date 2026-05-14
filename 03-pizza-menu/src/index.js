@@ -31,13 +31,13 @@ const pizzaData = [{
     ingredients: "Tomato, mozarella, and pepperoni",
     price: 15,
     photoPath: "pizzas/salamino.jpg",
-    soldOut: true,
+    soldOut: false,
 }, {
     name: "Pizza Prosciutto",
     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
     price: 18,
     photoPath: "pizzas/prosciutto.jpg",
-    soldOut: true,
+    soldOut: false,
 },];
 
 
@@ -119,14 +119,19 @@ function Footer() {
 
     return (
         <footer className="footer">
-            {isOpen ? (
-                <div className="order">
-
-                    <p>We're open until {closeHour}:00. Come visit us or order online.</p>
-                    <button className="btn">Order</button>
-                </div>
-            ) : <p>We're happy to welcome you between {openHour}:00 and {closeHour}:00.</p>}
+            {isOpen ? <Order closeHour={closeHour}/> :
+                <p>We're happy to welcome you between {openHour}:00 and {closeHour}:00.</p>}
         </footer>);
+}
+
+function Order(props) {
+    return (
+        <div className="order">
+
+            <p>We're open until {props.closeHour}:00. Come visit us or order online.</p>
+            <button className="btn">Order</button>
+        </div>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
