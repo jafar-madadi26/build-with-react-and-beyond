@@ -31,13 +31,13 @@ const pizzaData = [{
     ingredients: "Tomato, mozarella, and pepperoni",
     price: 15,
     photoPath: "pizzas/salamino.jpg",
-    soldOut: true,
+    soldOut: false,
 }, {
     name: "Pizza Prosciutto",
     ingredients: "Tomato, mozarella, ham, aragula, and burrata cheese",
     price: 18,
     photoPath: "pizzas/prosciutto.jpg",
-    soldOut: false,
+    soldOut: true,
 },];
 
 
@@ -54,20 +54,38 @@ function Header() {
     // const style = {color: "red", fontSize: "42px", textTransform: "uppercase"};
     const style = {};
 
-    return (<h1 className="header">
-        Fast React Pizza Co.
-    </h1>);
+    return (
+        <header className="header">
+            <h1 style={style}>
+                Fast React Pizza Co.
+            </h1>
+        </header>
+    );
 }
 
 function Menu() {
+
+    const pizzas = pizzaData;
+    // const pizzas = [];
+    const numPizzas = pizzas.length;
+
     return (<main className="menu">
         <h2>Our menu</h2>
 
-        <ul className="pizzas">
-            {pizzaData.map((pizza => (
-                <Pizza pizzaOpj={pizza} key={pizza.name} />
-            )))}
-        </ul>
+        {numPizzas > 0 ? (
+            <>
+                <p>Authentic Italian cuisine. 6 creative dishes to choose from. All form our stone oven, all organic,
+                    all
+                    delicious.</p>
+
+                <ul className="pizzas">
+                    {pizzas.map((pizza => (
+                        <Pizza pizzaOpj={pizza} key={pizza.name}/>
+                    )))}
+                </ul>
+            </>
+        ) : <p>We're still working on our menu. Please come back later :</p>}
+
 
         {/*<Pizza name='Pizza Spinaci' ingredients='Tomato, mozarella, spinach, and ricotta cheese'*/}
         {/*       photoPath='pizzas/spinaci.jpg' price={10}/>*/}
@@ -77,20 +95,32 @@ function Menu() {
     </main>)
 }
 
-function Pizza(props) {
+function Pizza({pizzaOpj}) {
+
+    console.log(pizzaOpj);
+
+    // if (pizzaOpj.soldOut) return null;
+
+
     return (
-        <li className='pizza'>
-            <img src={props.pizzaOpj.photoPath} alt={props.pizzaOpj.name}/>
+        <li className={`pizza ${pizzaOpj.soldOut ? "sold-out" : ""}`}>
+            <img src={pizzaOpj.photoPath} alt={pizzaOpj.name}/>
             <div>
-                <h3>{props.pizzaOpj.name}</h3>
-                <p>{props.pizzaOpj.ingredients}</p>
-                <span>{props.pizzaOpj.price}</span>
+                <h3>{pizzaOpj.name}</h3>
+                <p>{pizzaOpj.ingredients}</p>
+
+                {/*{pizzaOpj.soldOut ? (<span>SLOD OUT</span>) : (pizzaOpj.price)}*/}
+
+
+                <span>{pizzaOpj.soldOut ? "SOLD OUT" : pizzaOpj.price}</span>
             </div>
         </li>);
 }
 
 
-function Footer() {
+function Footer(props) {
+    console.log(props);
+
     const hour = new Date().getHours();
     const openHour = 9;
     const closeHour = 22;
@@ -100,10 +130,25 @@ function Footer() {
     // if (hour >= openHour && hour <= closeHour) alert("we're currently open!")
     // else alert("Sorry we're closed!");
 
+    // if (!isOpen)
+    //     return (
+    //         <p>CLOSED!</p>
+    //     );
 
-    return (<footer className="footer">
-        {new Date().toLocaleDateString()}. We're currently open
-    </footer>);
+    return (
+        <footer className="footer">
+            {isOpen ? <Order openHour={openHour} closeHour={closeHour}/> :
+                <p>We're happy to welcome you between {openHour}:00 and {closeHour}:00.</p>}
+        </footer>);
+}
+
+function Order({openHour, closeHour}) {
+    return (
+        <div className="order">
+            <p>We're open from {openHour}:00 to until {closeHour}:00. Come visit us or order online.</p>
+            <button className="btn">Order</button>
+        </div>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
